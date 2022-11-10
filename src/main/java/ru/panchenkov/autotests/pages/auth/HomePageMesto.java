@@ -18,12 +18,20 @@ public class HomePageMesto {
   public HomePageMesto(WebDriver driver) {
     this.driver = driver;
   }
+
+
+
+
   // метод ожидания прогрузки данных профиля
   public void waitForLoadProfileData() {
     new WebDriverWait(driver, Duration.ofSeconds(10)).until(driver -> (driver.findElement(profileTitle).getText() != null
             && !driver.findElement(profileTitle).getText().isEmpty()
     ));
   }
+
+
+
+
   // метод для нажатия на кнопку редактирования профиля
   public void clickEditProfileButton() {
     driver.findElement(editProfileButton).click();
