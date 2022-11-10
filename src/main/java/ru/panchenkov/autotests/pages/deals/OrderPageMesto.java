@@ -1,10 +1,10 @@
-package ru.panchenkov.autotests.pages.info;
+package ru.panchenkov.autotests.pages.deals;
 
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class ProfilePageMesto {
+public class OrderPageMesto {
 
   WebDriver driver;
   // создай локатор для поля «Занятие» в профиле пользователя
@@ -12,7 +12,7 @@ public class ProfilePageMesto {
   // создай локатор для кнопки «Сохранить» в профиле пользователя
   private final By save = By.className("popup__button");
 
-  public ProfilePageMesto(WebDriver driver){
+  public OrderPageMesto(WebDriver driver){
     this.driver = driver;
   }
 
