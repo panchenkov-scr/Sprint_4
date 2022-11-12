@@ -1,6 +1,7 @@
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
@@ -13,6 +14,8 @@ import java.io.File;
 
 public class Praktikum {
   public static WebDriver driver;
+  static final By homePage = By.className("Header_LogoScooter__3lsAR");
+
   @Before
   public void setUp() {
     ChromeDriverService service = new ChromeDriverService.Builder()
@@ -40,21 +43,22 @@ public class Praktikum {
     HomePageMesto objHomePage = new HomePageMesto(driver);
     // дождись загрузки данных профиля на главной странице
     objHomePage.waitForLoadProfileData();
-    // кликни на кнопку редактирования профиля
-    objHomePage.clickEditProfileButton();
+    // кликни на кнопку заказа в шапке страницы
+    objHomePage.clickEditHeadOrderButton();
+
 
 
     // создай объект класса для поп-апа редактирования профиля
     OrderPageMesto objProfilePage = new OrderPageMesto(driver);
     // это переменная со значением, которое надо ввести в поле «Занятие»
-    String newActivity = "Тестировщик";
+    String newActivity = "Для кого самокат";
     // в одном шаге проверь, что поле «Занятие» доступно для редактирования, и введи в него новое значение
-    objProfilePage.checkActivity(newActivity);
+    //objProfilePage.checkActivity(newActivity);
     // сохрани изменения в профиле
-    objProfilePage.clickProfile();
+    //objProfilePage.clickProfile();
 
-    // проверь, что поле «Занятие» на основной странице поменяло значение на новое
-    objHomePage.waitForChangedActivity(newActivity);
+    //проверь, что поле «Занятие» на основной странице поменяло значение на новое
+    objProfilePage.waitForChangedActivity(newActivity);
   }
   @After
   public void teardown() {

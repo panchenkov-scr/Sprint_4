@@ -10,36 +10,44 @@ import java.time.Duration;
 
 public class HomePageMesto {
   WebDriver driver;
-  private final By profileTitle = By.className("profile__title");
-  // создай локатор для кнопки редактирования профиля
-  private final By editProfileButton = By.className("profile__edit-button");
-  // создай локатор для поля «Занятие» в профиле пользователя
-  private final By activity = By.className("profile__description");
+  // создай локатор для ключевой фразы в шапке страницы
+  private final By homeTitle = By.className("Home_Header__iJKdX");
+  // создай локатор для кнопки заказа в шапке страницы
+  private final By HeadOrderButton = By.className("Button_Button__ra12g");
+  // создай локатор для кнопки заказа в центре страницы
+  private final By CenterOrderButton = By.className("Button_UltraBig__UU3Lp");
+  // создай локатор для кнопки статуса заказа в шапке страницы
+  private final By orderStatusButton = By.className("Header_Link__1TAG7");
+  // конструктор
   public HomePageMesto(WebDriver driver) {
     this.driver = driver;
   }
 
-
-
-
   // метод ожидания прогрузки данных профиля
   public void waitForLoadProfileData() {
-    new WebDriverWait(driver, Duration.ofSeconds(10)).until(driver -> (driver.findElement(profileTitle).getText() != null
-            && !driver.findElement(profileTitle).getText().isEmpty()
+    new WebDriverWait(driver, Duration.ofSeconds(10)).until(driver -> (driver.findElement(homeTitle).getText() != null
+            && !driver.findElement(homeTitle).getText().isEmpty()
     ));
   }
 
+  // метод для нажатия на ПАНЕЛИ ВОПРОСОВ О ВАЖНОМ
 
 
-
-  // метод для нажатия на кнопку редактирования профиля
-  public void clickEditProfileButton() {
-    driver.findElement(editProfileButton).click();
+  // метод для нажатия на кнопку заказа в шапке страницы
+  public void clickEditHeadOrderButton() {
+    driver.findElement(HeadOrderButton).click();
   }
-  public void waitForChangedActivity(String changed) {
+  // метод для нажатия на кнопку заказа в центре страницы
+  public void clickEditCenterOrderButton() {
+    driver.findElement(HeadOrderButton).click();
+  }
+
+
+
+  //public void waitForChangedActivity(String changed) {
     // здесь нужно дождаться, чтобы текст в элементе «Занятие» стал равен значению из параметра
     //new WebDriverWait(driver, Duration.ofSeconds(10)).until(driver -> (Objects.equals(driver.findElement(activity).getText(), changed)
     //));
-    ExpectedConditions.textToBePresentInElementLocated(activity, changed);
-  }
+  //  ExpectedConditions.textToBePresentInElementLocated(orderStatus, changed);
+  //}
 }
