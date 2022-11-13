@@ -11,7 +11,10 @@ import java.time.Duration;
 
 
 public class HomePageMesto {
+
   WebDriver driver;
+  static final By homePage = By.className("Header_LogoScooter__3lsAR");
+
   // создай локатор для ключевой фразы в шапке страницы
   private final By homeTitle = By.className("Home_Header__iJKdX");
   // создай локатор для кнопки заказа в шапке страницы
@@ -41,7 +44,7 @@ public class HomePageMesto {
   }
   // метод для нажатия на кнопку заказа в центре страницы
   public void clickEditCenterOrderButton() {
-    driver.findElement(HeadOrderButton).click();
+    driver.findElement(CenterOrderButton).click();
   }
 
   // метод для нажатия на вопрос в центре страницы
@@ -60,11 +63,5 @@ public class HomePageMesto {
   public void waitForChangedActivity(String number, String changed) {
     // здесь нужно дождаться, чтобы текст заголовка страницы стал равен значению из параметра
     ExpectedConditions.textToBePresentInElementLocated((By.xpath(".//div[@id = 'accordion__panel-" + number + "']/p")), changed);
-  }
-
-  // метод ожидания загрузки страницы
-  public void waitForLoadAnswer(){
-    new WebDriverWait(driver, Duration.ofSeconds(15))
-            .until(ExpectedConditions.visibilityOfElementLocated(By.className("accordion__panel")));
   }
 }

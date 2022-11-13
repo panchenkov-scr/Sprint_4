@@ -2,48 +2,20 @@ import org.hamcrest.MatcherAssert;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
 import ru.panchenkov.autotests.pages.auth.HomePageMesto;
-import ru.panchenkov.autotests.pages.deals.OrderPageMesto;
 
 import java.io.File;
 
 import static org.hamcrest.CoreMatchers.is;
 
 
-@RunWith(Parameterized.class)
-public class Praktikum {
+public class testQuestionsAboutImportant {
 
   public static WebDriver driver;
-  static final By homePage = By.className("Header_LogoScooter__3lsAR");
-
-  private final String name;
-  private final String surname;
-  private final String address;
-  private final String subway;
-  private final String telephone;
-
-  public Praktikum(String name, String surname, String address, String subway, String telephone) {
-    this.name = name;
-    this.surname = surname;
-    this.address = address;
-    this.subway = subway;
-    this.telephone = telephone;
-  }
-
-  @Parameterized.Parameters
-  public static Object[][] getTestData() {
-    return new Object[][] {
-            { "Василий", "Сидоров", "Воздвиженка, 15-1", "Арбатская", "+79991707777" },
-            { "Сергей", "Иванов", "Проспект Мира, 29-2-1", "Проспект Мира", "+79991889922" },
-    };
-  }
 
   @Before
   public void setUp() {
@@ -123,51 +95,6 @@ public class Praktikum {
     // проверь соответствие текста ответа образцу
     objHomePage.waitForChangedActivity("7", "Да, обязательно. Всем самокатов! И Москве, и Московской области.");
   }
-
-  //Заказ самоката. Весь флоу позитивного сценария. Обрати внимание, что есть две точки входа в сценарий: кнопка «Заказать» вверху страницы и внизу.
-  //Из чего состоит позитивный сценарий:
-  // 1. Нажать кнопку «Заказать». На странице две кнопки заказа.
-  // 2. Заполнить форму заказа.
-  // 3. Проверить, что появилось всплывающее окно с сообщением об успешном создании заказа.
-  @Test
-  public void checkOrderForm() {
-// драйвер для браузера Chrome
-    ChromeOptions options = new ChromeOptions();
-    // переход на страницу тестового приложения
-    driver.get("https://qa-scooter.praktikum-services.ru/");
-
-    // создай объект класса главной страницы приложения
-    HomePageMesto objHomePage = new HomePageMesto(driver);
-    // дождись загрузки данных профиля на главной странице
-    objHomePage.waitForLoadProfileData();
-   // Нажать кнопку «Заказать». На странице две кнопки заказа.
-    objHomePage.clickEditHeadOrderButton();
-    // создай объект класса главной страницы приложения
-    OrderPageMesto objOrderPage = new OrderPageMesto(driver);
-    // дождись загрузки данных на странице заполнения формы заказа
-    objOrderPage.waitForLoadOrderData();
-
-   // Заполнить форму заказа.
-
-   // Проверить, что появилось всплывающее окно с сообщением об успешном создании заказа.
-
-  }
-
-
-//
-//    // кликни на кнопку заказа в шапке страницы
-//    objHomePage.clickEditHeadOrderButton();
-//    // создай объект класса для поп-апа редактирования профиля
-//    OrderPageMesto objProfilePage = new OrderPageMesto(driver);
-//    // это переменная со значением, которое надо ввести в поле «Занятие»
-//    String newActivity = "Для кого самокат";
-//    // в одном шаге проверь, что поле «Занятие» доступно для редактирования, и введи в него новое значение
-//    //objProfilePage.checkActivity(newActivity);
-//    // сохрани изменения в профиле
-//    //objProfilePage.clickProfile();
-//
-//    //проверь, что поле «Занятие» на основной странице поменяло значение на новое
-//    objProfilePage.waitForChangedActivity(newActivity);
 
   @After
   public void teardown() {

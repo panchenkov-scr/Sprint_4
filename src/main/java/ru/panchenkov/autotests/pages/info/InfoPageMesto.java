@@ -3,28 +3,32 @@ package ru.panchenkov.autotests.pages.info;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class InfoPageMesto {
 
   WebDriver driver;
-  // создай локатор для поля «Занятие» в профиле пользователя
-  private final By activity = By.id("owner-description");
-  // создай локатор для кнопки «Сохранить» в профиле пользователя
-  private final By save = By.className("popup__button");
+  // создай локатор для кнопки «Да» при заказе пользователя
+  private final By orderTitle = By.className("Order_ModalHeader__3FDaJ");
+  // создай локатор для кнопки «Да» при заказе пользователя
+  private final By save = By.xpath(".//div[@class='Order_Modal__YZ-d3']/*/button[@class='Button_Button__ra12g Button_Middle__1CSJM']");
+
 
   public InfoPageMesto(WebDriver driver){
     this.driver = driver;
   }
 
-  // метод для проверки открытости поля «Занятие», удаления текста из неё и ввода нового значения из параметра
-  public void checkActivity(String changed){
-    Assert.assertTrue(driver.findElement(activity).isEnabled());
-    driver.findElement(activity).clear();
-    driver.findElement(activity).sendKeys(changed);
+  // метод ожидания прогрузки данных профиля
+  public void waitProfileCustomer() {
+    new WebDriverWait(driver, Duration.ofSeconds(10)).until(driver -> (driver.findElement(orderTitle).getText() != null
+            && !driver.findElement(orderTitle).getText().isEmpty()
+    ));
   }
 
-  // метод для нажатия на кнопку сохранения профиля
-  public void clickProfile(){
+  // метод для нажатия на кнопку покупки
+  public void clickConfirm(){
     driver.findElement(save).click();
   }
 }
