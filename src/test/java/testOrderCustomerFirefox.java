@@ -7,7 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
-import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxDriverService;
 import org.openqa.selenium.firefox.GeckoDriverService;
@@ -19,13 +19,10 @@ import ru.panchenkov.autotests.pages.info.LastPageMesto;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Objects;
-
-import static org.hamcrest.CoreMatchers.is;
 
 
 @RunWith(Parameterized.class)
-public class testOrderCustomer {
+public class testOrderCustomerFirefox {
 
   public static WebDriver driver;
 
@@ -39,7 +36,7 @@ public class testOrderCustomer {
   private final String color;
   private final String comment;
 
-  public testOrderCustomer(String name, String surname, String address, String subway, String telephone, String date, String periods, String color, String comment) {
+  public testOrderCustomerFirefox(String name, String surname, String address, String subway, String telephone, String date, String periods, String color, String comment) {
     this.name = name;
     this.surname = surname;
     this.address = address;
@@ -62,10 +59,11 @@ public class testOrderCustomer {
 
   @Before
   public void setUp() {
-    ChromeDriverService service = new ChromeDriverService.Builder()
-            .usingDriverExecutable(new File("C:/Development/Sprint_4/chromedriver.exe"))
+    GeckoDriverService gecko = new GeckoDriverService.Builder()
+            .usingDriverExecutable(new File("C:/Development/Sprint_4/geckodriver.exe"))
+            .usingFirefoxBinary(new FirefoxBinary(new File("C:/Program Files/Mozilla Firefox/firefox.exe")))
             .build();
-    driver = new ChromeDriver(service);
+    driver = new FirefoxDriver(gecko);
   }
 
   //Заказ самоката. Весь флоу позитивного сценария. Обрати внимание, что есть две точки входа в сценарий: кнопка «Заказать» вверху страницы и внизу.
