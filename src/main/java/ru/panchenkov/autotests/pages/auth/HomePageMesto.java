@@ -2,6 +2,8 @@ package ru.panchenkov.autotests.pages.auth;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -18,6 +20,9 @@ public class HomePageMesto {
   private final By CenterOrderButton = By.className("Button_UltraBig__UU3Lp");
   // создай локатор для кнопки статуса заказа в шапке страницы
   private final By orderStatusButton = By.className("Header_Link__1TAG7");
+
+  private final By question = By.xpath(".//div[@id = 'accordion__heading-0']");
+
   // конструктор
   public HomePageMesto(WebDriver driver) {
     this.driver = driver;
@@ -30,9 +35,6 @@ public class HomePageMesto {
     ));
   }
 
-  // метод для нажатия на ПАНЕЛИ ВОПРОСОВ О ВАЖНОМ
-
-
   // метод для нажатия на кнопку заказа в шапке страницы
   public void clickEditHeadOrderButton() {
     driver.findElement(HeadOrderButton).click();
@@ -42,12 +44,27 @@ public class HomePageMesto {
     driver.findElement(HeadOrderButton).click();
   }
 
+  // метод для нажатия на вопрос в центре страницы
+  public void clickQuestion(String number){
+    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+    WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.id("accordion__heading-" + number)));
+    Actions builder = new Actions(driver);
+    builder.click(element).build().perform();
+  }
 
+  // метод для получения текста n-го элемента в вопросе
+  public String getQuestionCenterOrderButton(String number){return driver.findElement(By.id("accordion__heading-" + number)).getText();
+  }
 
-  //public void waitForChangedActivity(String changed) {
-    // здесь нужно дождаться, чтобы текст в элементе «Занятие» стал равен значению из параметра
-    //new WebDriverWait(driver, Duration.ofSeconds(10)).until(driver -> (Objects.equals(driver.findElement(activity).getText(), changed)
-    //));
-  //  ExpectedConditions.textToBePresentInElementLocated(orderStatus, changed);
-  //}
+  // метод для получения текста n-го элемента в ответе
+  public void waitForChangedActivity(String number, String changed) {
+    // здесь нужно дождаться, чтобы текст заголовка страницы стал равен значению из параметра
+    ExpectedConditions.textToBePresentInElementLocated((By.xpath(".//div[@id = 'accordion__panel-" + number + "']/p")), changed);
+  }
+
+  // метод ожидания загрузки страницы
+  public void waitForLoadAnswer(){
+    new WebDriverWait(driver, Duration.ofSeconds(15))
+            .until(ExpectedConditions.visibilityOfElementLocated(By.className("accordion__panel")));
+  }
 }
